@@ -1,11 +1,8 @@
-%% @author Mochi Media <dev@mochimedia.com>
-%% @copyright 2010 Mochi Media <dev@mochimedia.com>
 
 %% @doc Web server for test_api.
 
 -module('test_api_web').
-
--author("Mochi Media <dev@mochimedia.com>").
+-include("test_api.hrl").
 
 -export([loop/2, start/1, stop/0]).
 
@@ -48,57 +45,52 @@ stop() -> mochiweb_http:stop(?MODULE).
 -endif.
 
 loop(Req, DocRoot) ->
-    "/" ++ Path = mochiweb_request:get(path, Req),
-    io:fwrite("~nReq: ~p~n", [Req]),
-    io:fwrite("~nPath: ~p~n", [Path]),
-    io:fwrite("~nHeaders: ~p~n", [mochiweb_request:get(headers, Req)]),
-    io:fwrite("~nContent-Type: ~p~n", [mochiweb_request:get_header_value("Content-Type", Req)]),
-    {ok, {IsFixed, ReturnType}} = application:get_env(test_api, return_type),
-    io:fwrite("~nIsFixed: ~p", [IsFixed]),
-    try case mochiweb_request:get(method, Req) of 
-        Method when Method =:= 'GET'; Method =:= 'HEAD' ->
-            case Path of
-                "hello_get" ->
-                    Ud = "Hello from hello_get!\n",
-                    if
-                        IsFixed == true ->
-                            Resp = create_response(ReturnType, Ud);
-                        true ->
-                            ReqContentType = mochiweb_request:get_header_value("Content-Type", Req),
-                            Resp = create_response(ReqContentType, Ud)
-                    end,
-                    mochiweb_request:respond(Resp, Req);
-                _ ->
-                    io:fwrite("~nError >> Unknown GET path : ~p~n", [Path]),
-                    mochiweb_request:serve_file(Path, DocRoot, Req)
-            end;
-        'POST' ->
-            case Path of
-                "hello_post" ->
-                    Body = mochiweb_request:recv_body(Req),
-                    io:fwrite("~nBody: ~p~n", [Body]),
-                    Ud = "1",
-                    if
-                        IsFixed ->
-                            Resp = create_response(ReturnType, Ud);
-                        true ->
-                            ReqContentType = mochiweb_request:get_header_value("Content-Type", Req),
-                            Resp = create_response(ReqContentType, Ud)
-                    end,
-                    mochiweb_request:respond(Resp, Req);
-                _ ->
-                    io:fwrite("~nError >> Unknown POST path : ~p~n", [Path]),
-                    mochiweb_request:not_found(Req)
-            end;
-        _ ->
-            mochiweb_request:respond({501, [], []}, Req)
+        "/" ++ Path = mochiweb_request:get(path, Req),
+    ?H("Path: ~p", [Path]),
+    try case re:split(Path, [$/], [{return, list}, {parts, 2}]) of
+            [] ->
+                error;
+            [ControllerName, Rest] ->
+                ControllerString = string:to_lower(ControllerName) ++ "_controller",
+                Controller = test_api_util:list_to_atom(ControllerString),
+                ?H("Controller: ~p", [Controller]),
+                Method = mochiweb_request:get(method, Req),
+                case Method of
+                    ?GET ->
+                        try case re:split(Rest, "\\?", [{return, list}, {parts, 2}]) of
+                                [Rest] ->
+                                    ActionString = string:to_lower(Rest),
+                                    Action = test_api_util:list_to_atom(ActionString),
+                                    Param = [],
+                                    ?H("Controller: ~p, Action: ~p, Param: ~p", [Controller, Action, Param]),
+                                    Controller:Action(Method, [], Req);
+                                [ActionName, Param] ->
+                                    ActionString = string:to_lower(ActionName),
+                                    Action = test_api_util:list_to_atom(ActionString),
+                                    ?H("Controller: ~p, Action: ~p, Param: ~p", [Controller, Action, Param]),
+                                    Controller:Action(?GET, Param, Req);
+                                _Else ->
+                                    mochiweb_request:respond({500, [{"Content-Type", "text/plain"}], "request failed, sorry\n"}, Req)
+                            end
+                        catch _ ->
+                            mochiweb_request:respond({500, [{"Content-Type", "text/plain"}], "request failed, sorry\n"}, Req)
+                        end;
+                    ?POST ->
+                        ActionString = string:to_lower(Rest),
+                        Action = test_api_util:list_to_atom(ActionString),
+                        ?H("Action: ~p", [Action]),
+                        Body = mochiweb_request:recv_body(Req),
+                        ?H("Body: ~p", [Body]),
+                        (Controller):(Action)(?POST, Body, Req)
+                end;
+            _Else ->
+                error
         end
     catch ?CAPTURE_EXC_PRE(Type, What, Trace) ->
         Report = ["web request failed", {path, Path}, {type, Type}, {what, What}, {trace, ?CAPTURE_EXC_GET(Trace)}],
         error_logger:error_report(Report),
         mochiweb_request:respond({500, [{"Content-Type", "text/plain"}], "request failed, sorry\n"}, Req)
     end.
-
 
 %% Internal API
 get_option(Option, Options) ->
