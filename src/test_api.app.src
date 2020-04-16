@@ -1,0 +1,9 @@
+%% -*- erlang -*-
+{application, test_api,
+ [{description, "test_api"},
+  {vsn, "0.1"},
+  {modules, []},
+  {registered, []},
+  {mod, {test_api_app, []}},
+  {env, [{http_ip, "127.0.0.1"}, {http_port, 9090}]},
+  {applications, [kernel, stdlib, crypto]}]}.
