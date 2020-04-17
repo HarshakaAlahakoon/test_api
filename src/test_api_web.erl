@@ -63,12 +63,12 @@ loop(Req, DocRoot) ->
                                     Action = test_api_util:list_to_atom(ActionString),
                                     Param = [],
                                     ?H("Controller: ~p, Action: ~p, Param: ~p", [Controller, Action, Param]),
-                                    Controller:Action(Method, [], Req);
+                                    (Controller):(Action)(Method, [], Req);
                                 [ActionName, Param] ->
                                     ActionString = string:to_lower(ActionName),
                                     Action = test_api_util:list_to_atom(ActionString),
                                     ?H("Controller: ~p, Action: ~p, Param: ~p", [Controller, Action, Param]),
-                                    Controller:Action(?GET, Param, Req);
+                                    (Controller):(Action)(?GET, Param, Req);
                                 _Else ->
                                     mochiweb_request:respond({500, [{"Content-Type", "text/plain"}], "request failed, sorry\n"}, Req)
                             end

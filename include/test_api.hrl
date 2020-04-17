@@ -6,3 +6,5 @@
 
 -define(GET, 'GET').
 -define(POST, 'POST').
+
+-define(APPLICATION, test_api).
