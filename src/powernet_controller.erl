@@ -25,5 +25,18 @@ qammeter(?POST, Body, Request) ->
 
 paypower(?POST, Body, Request) ->
     ?H(),
-    SoapData = "<ROOT><TOP><VERSION>1.0</VERSION><SOURCE>0</SOURCE><CUST_ID>00001029129222</CUST_ID><REQUEST_TIME>2015-01-02 12:01:01</REQUEST_TIME></TOP><BODY><RSPCOD>00000</RSPCOD><RSPMSG>Success</RSPMSG></BODY></ROOT>",
-    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], SoapData}, Request).
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/paypower_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+accountpayinfo(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/accountpayinfo_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+qagentppdetail(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/qagentppdetail_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).

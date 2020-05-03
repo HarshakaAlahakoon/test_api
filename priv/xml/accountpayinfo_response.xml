@@ -1,0 +1,47 @@
+<ROOT>
+    <TOP>
+        <VERSION>1.0</VERSION>
+        <SOURCE>0</SOURCE>
+        <CUST_ID>00001029129222</CUST_ID>
+        <REQUEST_TIME>2015-01-02 12:01:01</REQUEST_TIME>
+    </TOP>
+    <BODY>
+        <RSPCOD>00000</RSPCOD>
+        <RSPMSG>Query succeed!</RSPMSG>
+        <PAGENUM>1</PAGENUM>
+        <NUMPERPAG>10</NUMPERPAG>
+        <TOLCNT>171</TOLCNT>
+        <CCY>RMB</CCY>
+        <ALLORDAMT>238239.00</ALLORDAMT>
+        <STUDENTS>
+            <STUDENT>
+                <ENEL_NAME>haixing</ENEL_NAME>
+                <PRDORDNO>D014122600000208</PRDORDNO>
+                <METER_NO>13500314375</METER_NO>
+                <CUSTOMERID>193824</CUSTOMERID>
+                <CUSTOMERNAME>CENTLEC CUSTOMER</CUSTOMERNAME>
+                <POWER_AMT>100.00</POWER_AMT>
+                <ORDAMT>100.10</ORDAMT>
+                <ORDSTATUS>00</ORDSTATUS>
+                <OPER_NAME>LiSi</OPER_NAME>
+                <ORDERTIME>2014-12-26 12:08:19</ORDERTIME>
+            </STUDENT>
+            <STUDENT>
+                <ENEL_NAME>haixing</ENEL_NAME>
+                <PRDORDNO>D014122600000212</PRDORDNO>
+                <METER_NO>13500314375</METER_NO>
+                <CUSTOMERID>193824</CUSTOMERID>
+                <CUSTOMERNAME>CENTLEC CUSTOMER</CUSTOMERNAME>
+                <POWER_AMT>5000.00</POWER_AMT>
+                <ORDAMT>5005.00</ORDAMT>
+                <ORDSTATUS>00</ORDSTATUS>
+                <OPER_NAME>LiSi</OPER_NAME>
+                <ORDERTIME>2014-12-26 12:08:19</ORDERTIME>
+            </STUDENT>
+        </STUDENTS>
+    </BODY>
+    <TAIL>
+        <SIGN_TYPE>1</SIGN_TYPE>
+        <SIGNATURE>2309823293ADS9ADS9898A9</SIGNATURE>
+    </TAIL>
+</ROOT>
