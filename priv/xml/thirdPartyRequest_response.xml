@@ -1,0 +1,7 @@
+<result state="0" transID="103456781052" transTime="Thu Jan 25 10:53:36
+BDT 2018" refCode="0000000000178923" meterNum="546003774330" customerName="clou001" tariffCode="81" vendAMT="1000" arrearAMT="0" feeAMT="38.46" engAMT="961.54" seq="35" token="0418-4902-0936-0720-1503">
+    <fee test="123">
+        <item id="78" name="VAT" amt="48.08"/>
+        <item id="93" name="Demand Charge" amt="0"/>
+    </fee>
+</result>

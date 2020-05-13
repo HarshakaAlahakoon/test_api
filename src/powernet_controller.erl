@@ -40,3 +40,33 @@ qagentppdetail(?POST, Body, Request) ->
     {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/qagentppdetail_response.xml"),
     ?H("~p", [XmlFile]),
     mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+thirdpartyrequest(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/thirdPartyRequest_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+verifybpdbamount(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/verifyBPDBAmount_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+acknowledgement(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/acknowledgement_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+verifymeter(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/verifymeter_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).
+
+loadagentdailydata(?POST, Body, Request) ->
+    ?H(),
+    {ok, <<XmlFile/binary>>} = test_api_util:read_priv_file("xml/loadagentdailydata_response.xml"),
+    ?H("~p", [XmlFile]),
+    mochiweb_request:respond({200, [{"Content-Type", "text/xml"}], XmlFile}, Request).

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE vendingRecords>
+<vendingRecords>
+    <vendingRecord>
+        <orderId>0000000000189978</orderId>
+        <tnxId>20180228165101</tnxId>
+        <meter>020110000699</meter>
+        <amount>1000</amount>
+        <seq>9~11</seq>
+        <tokens>63587857660702056967, 62771792296012599789, 37834033544288010179</tokens>
+        <timeStamp>16:51:25 28-02-2018</timeStamp>
+    </vendingRecord>
+    <vendingRecord>
+        <orderId>0000000000189963</orderId>
+        <tnxId>20180228132101</tnxId>
+        <meter>020110002509</meter>
+        <amount>1000</amount>
+        <seq>16</seq>
+        <tokens>35293174513829506375</tokens>
+        <timeStamp>13:22:01 28-02-2018</timeStamp>
+    </vendingRecord>
+</vendingRecords>
